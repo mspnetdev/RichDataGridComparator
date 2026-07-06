@@ -268,7 +268,7 @@ function TanStackTablePage() {
       </Stack>
 
       <Card sx={{ minWidth: 0, boxShadow: '0 24px 70px rgba(15,23,42,0.08)' }}>
-        <CardContent>
+        <CardContent sx={{ minWidth: 0 }}>
           <Stack direction={{ xs: 'column', lg: 'row' }} spacing={2} justifyContent="space-between" sx={{ mb: 3 }}>
             <TextField
               label="Global search"

@@ -16,6 +16,27 @@ import {
   Typography
 } from '@mui/material';
 
+const versionInfo = [
+  {
+    library: 'MUI DataGrid',
+    version: 'v6.20.4',
+    license: 'MIT',
+    licenseUrl: 'https://opensource.org/licenses/MIT'
+  },
+  {
+    library: 'TanStack Table',
+    version: 'v8.20.5',
+    license: 'MIT',
+    licenseUrl: 'https://opensource.org/licenses/MIT'
+  },
+  {
+    library: 'AG Grid Community',
+    version: 'v32.2.0',
+    license: 'AGPL + Commercial',
+    licenseUrl: 'https://www.ag-grid.com/license-pricing.php'
+  }
+];
+
 const benchmarkRows = [
   {
     feature: 'Setup speed',
@@ -53,6 +74,13 @@ const benchmarkRows = [
     winner: 'Tie by context'
   },
   {
+    feature: 'Open source license',
+    mui: 'MIT (fully permissive)',
+    tanstack: 'MIT (fully permissive)',
+    aggrid: 'AGPL (Community) + Commercial dual licensing',
+    winner: 'MUI / TanStack'
+  },
+  {
     feature: 'Maintenance profile',
     mui: 'Less custom code to own, more vendor conventions to follow.',
     tanstack: 'More code to own, but easier to keep aligned with custom product requirements.',
@@ -63,9 +91,9 @@ const benchmarkRows = [
 
 const benchmarkCards = [
   {
-    label: 'Initial route strategy',
-    value: 'Lazy loaded',
-    detail: 'Both grid pages now load only when visited.'
+    label: 'Available features',
+    value: 'Sorting, filtering, pinning, export',
+    detail: 'All three grids include column pinning, multi-sort, filtering, and row selection. MUI & AG Grid have CSV export.'
   },
   {
     label: 'Best fit',
@@ -74,9 +102,25 @@ const benchmarkCards = [
   },
   {
     label: 'Recommendation',
-    value: 'Prototype both',
-    detail: 'This workspace now gives you the same dataset on both implementations.'
+    value: 'Prototype all three',
+    detail: 'This workspace gives you the same dataset on all implementations to compare.'
   }
+];
+
+const featuresList = [
+  { feature: 'Multi-column sorting', mui: '✓', tanstack: '✓', aggrid: '✓' },
+  { feature: 'Column filtering', mui: '✓ (toolbar)', tanstack: '✓ (global)', aggrid: '✓ (column-level)' },
+  { feature: 'Pagination', mui: '✓', tanstack: '✓', aggrid: '✓' },
+  { feature: 'Row selection (checkbox)', mui: '✓', tanstack: '✓', aggrid: '✓' },
+  { feature: 'Inline row editing', mui: '✓', tanstack: '✓ (custom)', aggrid: '✓' },
+  { feature: 'CSV/Excel export', mui: '✓ (toolbar)', tanstack: '✗', aggrid: '✓ (button)' },
+  { feature: 'Column pinning', mui: '✗', tanstack: '✗ (custom)', aggrid: '✓' },
+  { feature: 'Column visibility toggle', mui: '✗ (partial)', tanstack: '✓', aggrid: '✓ (menu)' },
+  { feature: 'Column resizing', mui: '✓', tanstack: '✗', aggrid: '✓' },
+  { feature: 'Quick search/filter', mui: '✓ (toolbar)', tanstack: '✓', aggrid: '✓' },
+  { feature: 'Customizable rendering', mui: 'Limited', tanstack: '✓ (headless)', aggrid: '✓ (renderers)' },
+  { feature: 'Built-in toolbar', mui: '✓', tanstack: '✗ (manual)', aggrid: '✗ (manual)' },
+  { feature: 'Theme/styling', mui: 'MUI Material', tanstack: 'Custom CSS', aggrid: 'CSS variables' }
 ];
 
 function BenchmarkPage() {
@@ -109,6 +153,70 @@ function BenchmarkPage() {
           </Card>
         ))}
       </Stack>
+
+      <Card sx={{ boxShadow: '0 24px 70px rgba(15,23,42,0.08)' }}>
+        <CardContent>
+          <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
+            Versioni e Licenze
+          </Typography>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell sx={{ fontWeight: 700 }}>Libreria</TableCell>
+                <TableCell sx={{ fontWeight: 700 }}>Versione</TableCell>
+                <TableCell sx={{ fontWeight: 700 }}>Licenza</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {versionInfo.map((item) => (
+                <TableRow key={item.library}>
+                  <TableCell sx={{ fontWeight: 700 }}>{item.library}</TableCell>
+                  <TableCell>{item.version}</TableCell>
+                  <TableCell>
+                    <Chip
+                      label={item.license}
+                      size="small"
+                      variant="outlined"
+                      onClick={() => window.open(item.licenseUrl, '_blank')}
+                      sx={{ cursor: 'pointer' }}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+
+      <Card sx={{ boxShadow: '0 24px 70px rgba(15,23,42,0.08)' }}>
+        <CardContent>
+          <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
+            Funzionalità disponibili
+          </Typography>
+          <TableContainer className="tanstack-shell">
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell sx={{ fontWeight: 700 }}>Funzionalità</TableCell>
+                  <TableCell sx={{ fontWeight: 700, textAlign: 'center' }}>MUI DataGrid</TableCell>
+                  <TableCell sx={{ fontWeight: 700, textAlign: 'center' }}>TanStack Table</TableCell>
+                  <TableCell sx={{ fontWeight: 700, textAlign: 'center' }}>AG Grid</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {featuresList.map((item) => (
+                  <TableRow key={item.feature} hover>
+                    <TableCell sx={{ fontWeight: 700, fontSize: '0.95rem' }}>{item.feature}</TableCell>
+                    <TableCell sx={{ textAlign: 'center', fontSize: '0.9rem' }}>{item.mui}</TableCell>
+                    <TableCell sx={{ textAlign: 'center', fontSize: '0.9rem' }}>{item.tanstack}</TableCell>
+                    <TableCell sx={{ textAlign: 'center', fontSize: '0.9rem' }}>{item.aggrid}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </CardContent>
+      </Card>
 
       <Card sx={{ boxShadow: '0 24px 70px rgba(15,23,42,0.08)' }}>
         <CardContent>

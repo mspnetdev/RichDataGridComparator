@@ -4,6 +4,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import {
   Box,
+  Button,
   Card,
   CardContent,
   Chip,
@@ -19,7 +20,7 @@ import SaveRoundedIcon from '@mui/icons-material/SaveRounded';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { orders, priorities, regions, salesPeople, statuses } from '../data/orders';
 
-const gridMinWidth = 1540;
+// Removed gridMinWidth to allow responsive layout
 
 // Cell renderer for Edit / Save / Cancel buttons.
 // Reads editingRowId from a ref via a context getter so refreshCells() keeps buttons in sync
@@ -87,6 +88,10 @@ function AgGridPage() {
     gridRef.current?.api?.setGridOption('quickFilterText', event.target.value);
   };
 
+  const handleExportClick = useCallback(() => {
+    gridRef.current?.api?.exportDataAsCsv({ fileName: 'ag-grid-orders.csv' });
+  }, []);
+
   const onRowEditingStopped = useCallback(() => {
     editingRowIdRef.current = null;
     gridRef.current?.api?.refreshCells({ force: true, columns: ['actions'] });
@@ -115,8 +120,8 @@ function AgGridPage() {
         editable: false,
         pinned: 'left'
       },
-      { field: 'orderCode', headerName: 'Order', minWidth: 110, flex: 0.9 },
-      { field: 'customer', headerName: 'Customer', minWidth: 150, flex: 1.2 },
+      { field: 'orderCode', headerName: 'Order', minWidth: 110, flex: 0.9, pinned: 'left' },
+      { field: 'customer', headerName: 'Customer', minWidth: 150, flex: 1.2, pinned: 'left' },
       {
         field: 'region',
         headerName: 'Region',
@@ -179,11 +184,12 @@ function AgGridPage() {
         minWidth: 100,
         flex: 0.8,
         filter: 'agNumberColumnFilter',
-        valueFormatter: ({ value }) => (value != null ? `$${value}` : '')
+        valueFormatter: ({ value }) => (value != null ? `$${value}` : ''),
+        hide: true
       },
-      { field: 'discount', headerName: 'Discount %', type: 'numericColumn', minWidth: 100, flex: 0.8, filter: 'agNumberColumnFilter' },
-      { field: 'fulfillmentDays', headerName: 'Lead Days', type: 'numericColumn', minWidth: 100, flex: 0.8, filter: 'agNumberColumnFilter' },
-      { field: 'createdAt', headerName: 'Created', minWidth: 110, flex: 0.9 },
+      { field: 'discount', headerName: 'Discount %', type: 'numericColumn', minWidth: 100, flex: 0.8, filter: 'agNumberColumnFilter', hide: true },
+      { field: 'fulfillmentDays', headerName: 'Lead Days', type: 'numericColumn', minWidth: 100, flex: 0.8, filter: 'agNumberColumnFilter', hide: true },
+      { field: 'createdAt', headerName: 'Created', minWidth: 110, flex: 0.9, hide: true },
       {
         field: 'actions',
         headerName: 'Actions',
@@ -215,7 +221,7 @@ function AgGridPage() {
 
       <Card sx={{ minWidth: 0, overflow: 'visible', boxShadow: '0 24px 70px rgba(15,23,42,0.08)' }}>
         <CardContent sx={{ p: 0, pb: '0 !important', minWidth: 0 }}>
-          <Box sx={{ px: 2, py: 1.5, borderBottom: '1px solid rgba(15,118,110,0.1)' }}>
+          <Box sx={{ px: 2, py: 1.5, borderBottom: '1px solid rgba(15,118,110,0.1)', display: 'flex', gap: 2, alignItems: 'center', justifyContent: 'space-between' }}>
             <TextField
               onChange={handleQuickFilter}
               placeholder="Cerca in tutta la tabella…"
@@ -229,6 +235,9 @@ function AgGridPage() {
                 )
               }}
             />
+            <Button size="small" onClick={handleExportClick} sx={{ textTransform: 'none' }}>
+              Scarica CSV
+            </Button>
           </Box>
           <Box
             sx={{
@@ -239,7 +248,7 @@ function AgGridPage() {
               overflowY: 'hidden'
             }}
           >
-            <Box sx={{ height: '100%', minWidth: gridMinWidth }} className="ag-theme-alpine">
+            <Box sx={{ height: '100%', minWidth: 0 }} className="ag-theme-alpine">
               <AgGridReact
                 ref={gridRef}
                 rowData={orders}

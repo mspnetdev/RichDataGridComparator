@@ -12,7 +12,7 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import SaveRoundedIcon from '@mui/icons-material/SaveRounded';
 import { orders, priorities, regions, salesPeople, statuses } from '../data/orders';
 
-const gridMinWidth = 1490;
+// Removed gridMinWidth to allow responsive layout
 
 function MuiGridPage() {
   const [rows, setRows] = useState(orders);
@@ -61,8 +61,8 @@ function MuiGridPage() {
   };
 
   const columns = [
-    { field: 'orderCode', headerName: 'Order', minWidth: 110, flex: 0.9, editable: true },
-    { field: 'customer', headerName: 'Customer', minWidth: 150, flex: 1.2, editable: true },
+    { field: 'orderCode', headerName: 'Order', minWidth: 110, flex: 0.9, editable: true, pinned: 'left' },
+    { field: 'customer', headerName: 'Customer', minWidth: 150, flex: 1.2, editable: true, pinned: 'left' },
     { field: 'region', headerName: 'Region', minWidth: 100, flex: 0.75, editable: true, type: 'singleSelect', valueOptions: regions },
     { field: 'salesOwner', headerName: 'Owner', minWidth: 110, flex: 0.8, editable: true, type: 'singleSelect', valueOptions: salesPeople },
     { field: 'status', headerName: 'Status', minWidth: 120, flex: 0.9, editable: true, type: 'singleSelect', valueOptions: statuses },
@@ -143,7 +143,7 @@ function MuiGridPage() {
               minWidth: 0,
               overflowX: 'auto',
               overflowY: 'hidden',
-              '& .MuiDataGrid-root': { border: 0, minWidth: gridMinWidth },
+              '& .MuiDataGrid-root': { border: 0 },
               '& .MuiDataGrid-main': { minWidth: 0 },
               '& .MuiDataGrid-columnHeaders': { backgroundColor: 'rgba(15,118,110,0.08)' }
             }}
@@ -182,7 +182,7 @@ function MuiGridPage() {
                   csvOptions: { fileName: 'mui-grid-orders' }
                 }
               }}
-              sx={{ minWidth: gridMinWidth }}
+              sx={{ minWidth: 0 }}
             />
           </Box>
         </CardContent>
