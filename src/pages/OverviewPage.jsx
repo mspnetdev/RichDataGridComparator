@@ -24,7 +24,7 @@ function OverviewPage() {
         <Stack spacing={3}>
           <Chip label="Interactive benchmark" color="primary" sx={{ alignSelf: 'flex-start' }} />
           <Typography variant="h1" sx={{ fontSize: { xs: '2.6rem', md: '4.8rem' }, maxWidth: 900 }}>
-            Due data grid, stesso dataset, compromessi molto diversi.
+            Comparatore data grid.
           </Typography>
           <Typography variant="h5" color="text.secondary" sx={{ maxWidth: 880, lineHeight: 1.45 }}>
             Questa demo mette a confronto una grid opinionated e pronta all'uso con un motore headless orientato alla composizione.
