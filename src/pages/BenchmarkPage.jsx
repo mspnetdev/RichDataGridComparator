@@ -21,36 +21,42 @@ const benchmarkRows = [
     feature: 'Setup speed',
     mui: 'High: sorting, filtering, toolbar and pagination are already packaged.',
     tanstack: 'Medium: feature logic exists, but UI wiring is your responsibility.',
-    winner: 'MUI DataGrid'
+    aggrid: 'High: column filters, multi-sort and pagination are ready with minimal config.',
+    winner: 'MUI / AG Grid'
   },
   {
     feature: 'Bundle entry cost',
     mui: 'Higher due to richer component surface and built-in grid UI.',
     tanstack: 'Lower because the table engine is headless and renders only what you add.',
+    aggrid: 'Medium: core engine is lean, extra features are tree-shaken in.',
     winner: 'TanStack Table'
   },
   {
     feature: 'Visual consistency',
     mui: 'Strong default UX with coherent interactions out of the box.',
     tanstack: 'Depends entirely on your design system and implementation discipline.',
+    aggrid: 'Good defaults with theme variants; fully customisable via CSS variables.',
     winner: 'MUI DataGrid'
   },
   {
     feature: 'Customization depth',
     mui: 'Good, but within the boundaries of the provided component model.',
     tanstack: 'Excellent: layout, markup and interactions are all under your control.',
-    winner: 'TanStack Table'
+    aggrid: 'Very good: cell renderers, editors and themes give deep control.',
+    winner: 'TanStack / AG Grid'
   },
   {
     feature: 'Feature scaling',
     mui: 'Fast for admin panels and internal tools where defaults are valuable.',
     tanstack: 'Best when the table becomes product UI and needs domain-specific behavior.',
+    aggrid: 'Scales well from simple tables to complex data-heavy dashboards.',
     winner: 'Tie by context'
   },
   {
     feature: 'Maintenance profile',
     mui: 'Less custom code to own, more vendor conventions to follow.',
     tanstack: 'More code to own, but easier to keep aligned with custom product requirements.',
+    aggrid: 'Moderate: rich API surface but well documented and stable.',
     winner: 'Tie by team'
   }
 ];
@@ -113,6 +119,7 @@ function BenchmarkPage() {
                   <TableCell sx={{ fontWeight: 700 }}>Feature</TableCell>
                   <TableCell sx={{ fontWeight: 700 }}>MUI DataGrid</TableCell>
                   <TableCell sx={{ fontWeight: 700 }}>TanStack Table</TableCell>
+                  <TableCell sx={{ fontWeight: 700 }}>AG Grid Community</TableCell>
                   <TableCell sx={{ fontWeight: 700 }}>Best fit</TableCell>
                 </TableRow>
               </TableHead>
@@ -122,6 +129,7 @@ function BenchmarkPage() {
                     <TableCell sx={{ fontWeight: 700 }}>{row.feature}</TableCell>
                     <TableCell>{row.mui}</TableCell>
                     <TableCell>{row.tanstack}</TableCell>
+                    <TableCell>{row.aggrid}</TableCell>
                     <TableCell>{row.winner}</TableCell>
                   </TableRow>
                 ))}
@@ -135,6 +143,9 @@ function BenchmarkPage() {
             </Button>
             <Button component={RouterLink} to="/tanstack-table" variant="outlined">
               Rivedi TanStack Table
+            </Button>
+            <Button component={RouterLink} to="/ag-grid" variant="outlined">
+              Rivedi AG Grid
             </Button>
           </Stack>
         </CardContent>

@@ -14,6 +14,11 @@ const comparisonItems = [
     title: 'TanStack Table',
     strength: 'Rendering freedom',
     notes: 'Headless primitives let you define markup, interactions and styling without framework constraints.'
+  },
+  {
+    title: 'AG Grid Community',
+    strength: 'Performance + feature depth',
+    notes: 'High-performance grid with rich column filters, multi-sort, inline editing and large dataset support in the free Community edition.'
   }
 ];
 
@@ -29,12 +34,15 @@ function OverviewPage() {
           <Typography variant="h5" color="text.secondary" sx={{ maxWidth: 880, lineHeight: 1.45 }}>
             Questa demo mette a confronto una grid opinionated e pronta all'uso con un motore headless orientato alla composizione.
           </Typography>
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} flexWrap="wrap">
             <Button component={RouterLink} to="/mui-grid" variant="contained" size="large" endIcon={<EastRoundedIcon />}>
               Apri MUI DataGrid
             </Button>
             <Button component={RouterLink} to="/tanstack-table" variant="outlined" size="large">
               Apri TanStack Table
+            </Button>
+            <Button component={RouterLink} to="/ag-grid" variant="outlined" size="large">
+              Apri AG Grid
             </Button>
             <Button component={RouterLink} to="/benchmark" variant="text" size="large">
               Apri Benchmark
@@ -61,7 +69,7 @@ function OverviewPage() {
         ))}
       </Grid>
 
-      <Grid container spacing={3}>
+      <Grid container spacing={3} justifyContent="center">
         {comparisonItems.map((item) => (
           <Grid item xs={12} md={6} key={item.title}>
             <Card sx={{ height: '100%', background: 'rgba(255,250,244,0.92)' }}>

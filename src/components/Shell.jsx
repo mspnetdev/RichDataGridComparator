@@ -6,12 +6,13 @@ const navItems = [
   { to: '/', label: 'Overview' },
   { to: '/mui-grid', label: 'MUI DataGrid' },
   { to: '/tanstack-table', label: 'TanStack Table' },
+  { to: '/ag-grid', label: 'AG Grid' },
   { to: '/benchmark', label: 'Benchmark' }
 ];
 
 function Shell() {
   const { pathname } = useLocation();
-  const isDataHeavyRoute = ['/mui-grid', '/tanstack-table', '/benchmark'].includes(pathname);
+  const isDataHeavyRoute = ['/mui-grid', '/tanstack-table', '/ag-grid', '/benchmark'].includes(pathname);
 
   return (
     <Box sx={{ minHeight: '100vh', background: 'radial-gradient(circle at top left, rgba(15,118,110,0.16), transparent 34%), radial-gradient(circle at top right, rgba(217,119,6,0.18), transparent 28%)' }}>

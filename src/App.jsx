@@ -6,6 +6,7 @@ import OverviewPage from './pages/OverviewPage';
 
 const MuiGridPage = lazy(() => import('./pages/MuiGridPage'));
 const TanStackTablePage = lazy(() => import('./pages/TanStackTablePage'));
+const AgGridPage = lazy(() => import('./pages/AgGridPage'));
 const BenchmarkPage = lazy(() => import('./pages/BenchmarkPage'));
 
 function PageFallback() {
@@ -34,6 +35,14 @@ function App() {
           element={
             <Suspense fallback={<PageFallback />}>
               <TanStackTablePage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="ag-grid"
+          element={
+            <Suspense fallback={<PageFallback />}>
+              <AgGridPage />
             </Suspense>
           }
         />
